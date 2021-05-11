@@ -33,12 +33,12 @@ void readIncomingBluetooth (String &readBuffer) {
 
   if (SerialBT.hasClient())
   {
-    led_set (LED_BLUE, true);
+    led_set (LED, true);
     hadClient = true;
   }
   else
   {
-    led_set (LED_BLUE, false);
+    led_set (LED, false);
 
     if (hadClient)
     {

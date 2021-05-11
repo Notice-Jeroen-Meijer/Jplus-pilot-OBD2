@@ -30,7 +30,7 @@ void isotp_ticker ();
 void storeIsotpframe (CAN_frame_t &frame, uint8_t bus);
 void processASDTframe (CAN_frame_t &frame);
 String isoMessageToString (ISO_MESSAGE_t &message);
-void can_send_flow (uint32_t requestId, uint8_t flow);
+void can_send_flow (uint32_t requestId);
 void requestIsotp (uint32_t id, int16_t length, uint8_t *request, uint8_t bus);
 String isoMessageToString (ISO_MESSAGE_t &message);
 

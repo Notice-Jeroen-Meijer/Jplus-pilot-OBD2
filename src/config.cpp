@@ -32,7 +32,7 @@ void setConfigDefault_1 () {
 //}
 
 void setConfigDefault () {
-  setConfigDefault_1 ()
+  setConfigDefault_1 ();
   //setConfigDefault_2 ()
   // add more calls if needed
 }

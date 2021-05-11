@@ -31,7 +31,7 @@ void processUUDTframe (CAN_frame_t &frame) {
 
     // queue it. If the message queue does not exist or is full, dispose the
     // frame
-    if (messageQueue) (messageQueue, &msg, 0);
+    if (messageQueue) xQueueSend(messageQueue, &msg, 0);
   }
 
   // if the age is 0 we are done
