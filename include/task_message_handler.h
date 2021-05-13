@@ -14,4 +14,6 @@ typedef struct {
   uint8_t data[4096];                              // max ISOTP multiframe message
 } MESSAGE_t;
 
+void task_message_handler_init();
+
 #endif

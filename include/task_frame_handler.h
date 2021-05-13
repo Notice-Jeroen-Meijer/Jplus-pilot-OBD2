@@ -4,9 +4,9 @@
 
 #include "leds.h"
 #include "canhandler.h"
-#include "freeframehandler.h"
-#include "isotphandler.h"
+#include "uudt_handler.h"
+#include "asdt_handler.h"
 
 // The only public function is the init, as it starts the CANBus controller,
 // ISR and an RTOS task process incoming framess.
-void init();
+void task_frame_handler_init();

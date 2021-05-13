@@ -14,6 +14,6 @@ void can_init ();
 void can_send (CAN_frame_t *frame);
 boolean can_receive (CAN_frame_t *rx_frame);
 boolean can_receive_blocked (CAN_frame_t *rx_frame);
-String canFrameToString(CAN_frame_t &frame);
+String can_frame_to_string(CAN_frame_t &frame);
 
 #endif

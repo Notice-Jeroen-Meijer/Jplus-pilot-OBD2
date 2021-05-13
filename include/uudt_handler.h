@@ -1,5 +1,5 @@
-#ifndef _FREEFRAMEHANDLER_H_
-#define _FREEFRAMEHANDLER_H_
+#ifndef _UUDTHANDLER_H_
+#define _UUDTHANDLER_H_
 
 #include <Arduino.h>
 
@@ -8,7 +8,8 @@
 
 #include "config.h"
 #include "canhandler.h"
-#include "message.h"
+#include "task_message_handler.h"
+#include "leds.h"
 #include "utils.h"
 
 // A freeframe is the same as an UUDT frame. UUDT frames are generally sent
@@ -44,12 +45,8 @@ typedef struct {
 
 extern QueueHandle_t messageQueue;
 
-void freeframe_init ();
-void storeFreeframe (CAN_frame_t &frame, uint8_t bus);
-void ageFreeFrame ();
-FREEFRAME_t *getFreeframe (uint32_t id, uint8_t bus);
-void requestFreeframe  (uint32_t id, uint8_t bus);
-String bufferedFrameToString (uint32_t id, uint8_t bus);
-void processUUDTframe (CAN_frame_t &frame);
+void uudt_init ();
+String uudt_to_string (uint32_t id, uint8_t bus);
+void uudt_process_frame (CAN_frame_t &frame);
 
 #endif

@@ -7,7 +7,7 @@ static bool bluetooth_active = false;
 static bool hadClient = false;
 
 void bluetooth_init () {
-  bluetooth_config = getConfig ();
+  bluetooth_config = config_get ();
   bluetooth_active = bluetooth_config->mode_bluetooth;
   if (bluetooth_active) {
     if (bluetooth_config->mode_debug) Serial.println("Bluetooth '" + String (bluetooth_config->name_bluetooth) + "' started.");
@@ -15,7 +15,7 @@ void bluetooth_init () {
   }
 }
 
-void setActiveBluetooth (bool active) {
+void bluetooth_set_active (bool active) {
   // If active is false in and output is simply ignored. At the moment This
   // is a safer solution than switching off Bluetooth or BluetoothSerial as
   // there seems to be a nasty memory leak in that part of the core, see
@@ -24,11 +24,11 @@ void setActiveBluetooth (bool active) {
   bluetooth_active = active;
 }
 
-void writeOutgoingBluetooth (String o) {
+void write_outgoing_bluetooth (String o) {
   if (bluetooth_active && SerialBT.hasClient()) SerialBT.print (o);
 }
 
-void readIncomingBluetooth (String &readBuffer) {
+void bluetooth_read_incoming (String &readBuffer) {
   if (!bluetooth_config->mode_bluetooth) return;
 
   if (SerialBT.hasClient())

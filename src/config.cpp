@@ -4,7 +4,7 @@
 static CS_CONFIG_t cs_config;
 static bool fetched = false;
 
-void setConfigDefault_1 () {
+void config_set_default_1 () {
   cs_config.magicnumber               = CONFIG_MAGIC_NUMBER;
   cs_config.version                   = 1;         // change if length of config changes
   cs_config.mode_serial               = 1;
@@ -27,12 +27,12 @@ void setConfigDefault_1 () {
 }
 
 // placeholder for initializing new fields in a new version of EEPROM config
-//void setConfigDefault_2 () {
+//void config_set_default_2 () {
   //cs_config.version                   = 2;
 //}
 
-void setConfigDefault () {
-  setConfigDefault_1 ();
+void config_set_default () {
+  config_set_default_1 ();
   //setConfigDefault_2 ()
   // add more calls if needed
 }
@@ -41,36 +41,36 @@ void setConfigDefault () {
 
 // return a pointer to the config in RAM. Note that this is always a pointer and while different modules might
 // individually call getConfig, it's only allocated once (static) and only the pointer is returned.
-CS_CONFIG_t *getConfig () {
+CS_CONFIG_t *config_get () {
   if (fetched) return &cs_config;
   if (!EEPROM.begin (sizeof (CS_CONFIG_t))) {
     Serial.println ("failed to initialise EEPROM for reading");
-    setConfigDefault (); // create a default config in RAM and hope for the best
+    config_set_default (); // create a default config in RAM and hope for the best
     return &cs_config;
   }
   if (EEPROM.readBytes (0, &cs_config, sizeof (CS_CONFIG_t)) != sizeof (CS_CONFIG_t) || cs_config.magicnumber != 0x0caacee0) {
     Serial.println ("Not a valid EEPROM record");
-    setConfigToEeprom (true);
+    config_write_to_eeprom (true);
   }
   // so here we have a valid cs_config
   //if (cs_config.version < 3) {
   //  Serial.println ("EEPROM structure changed");
   //  EEPROM.end ();
   //  setConfigDefault_x ();
-    setConfigToEeprom (false);
+    config_write_to_eeprom (false);
   //} else {
     EEPROM.end ();
   //}
   return &cs_config;
 }
 
-void setConfigToEeprom (bool reset) {
+void config_write_to_eeprom (bool reset) {
   if (!EEPROM.begin (sizeof (CS_CONFIG_t)))
   {
     Serial.println ("failed to initialise EEPROM for writing");
     return;
   }
-  if (reset) setConfigDefault_1 ();
+  if (reset) config_set_default ();
   EEPROM.writeBytes (0, &cs_config, sizeof (CS_CONFIG_t));
   EEPROM.commit ();
   EEPROM.end ();
